@@ -6,7 +6,9 @@ export const HomePage = () => {
       <h1>Welcome!</h1>
       <br />
       <button>I'm a babysitter</button>
-      <button>I'm a parent</button>
+      <Link to="/babysitters">
+        <button>I'm a parent</button>
+      </Link>
     </div>
   );
 };
