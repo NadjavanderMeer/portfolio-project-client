@@ -14,6 +14,7 @@ export const signUp = (name, email, password) => {
         name,
         email,
         password,
+        isBabysitter: false,
       });
 
       dispatch(
