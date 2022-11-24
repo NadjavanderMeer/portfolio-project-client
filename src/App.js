@@ -4,8 +4,10 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getUserWithStoredToken } from "./store/user/thunks";
 import { Routes, Route } from "react-router-dom";
+
 import { LoginPage, SignUpPage, HomePage, BabysitterPage } from "./pages";
 import { NavBar } from "./components";
+
 
 function App() {
   const dispatch = useDispatch();
