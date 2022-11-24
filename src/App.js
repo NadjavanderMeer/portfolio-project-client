@@ -11,6 +11,7 @@ import {
   BabysitterPage,
   FamilyPage,
   BabysitterDetailsPage,
+  FamilyDetailsPage,
 } from "./pages";
 import { NavBar } from "./components";
 
@@ -29,6 +30,7 @@ function App() {
         <Route path="/babysitters" element={<BabysitterPage />} />
         <Route path="/babysitters/:id" element={<BabysitterDetailsPage />} />
         <Route path="/families" element={<FamilyPage />} />
+        <Route path="/families/:id" element={<FamilyDetailsPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/login" element={<LoginPage />} />
       </Routes>

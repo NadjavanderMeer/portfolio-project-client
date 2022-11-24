@@ -17,9 +17,14 @@ const familySlice = createSlice({
       state.families = action.payload;
       state.loading = false;
     },
+    familyDetailsfetched: (state, action) => {
+      state.familyDetails = action.payload;
+      state.loading = false;
+    },
   },
 });
 
-export const { startLoading, familiesFetched } = familySlice.actions;
+export const { startLoading, familiesFetched, familyDetailsfetched } =
+  familySlice.actions;
 
 export default familySlice.reducer;

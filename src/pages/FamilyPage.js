@@ -24,6 +24,7 @@ export const FamilyPage = () => {
               key={family.id}
               name={family.name}
               imageUrl={family.imageUrl}
+              id={family.id}
             />
           ))}
     </div>

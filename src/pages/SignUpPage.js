@@ -8,7 +8,7 @@ export const SignUpPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isBabysitter, setIsBabysitter] = useState("");
+  const [isBabysitter, setIsBabysitter] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -49,8 +49,8 @@ export const SignUpPage = () => {
         <p>I am a babysitter</p>
         <input
           type="checkbox"
-          value={isBabysitter}
-          onChange={(event) => setIsBabysitter(event.target.value)}
+          checked={isBabysitter}
+          onChange={() => setIsBabysitter(!isBabysitter)}
         />
         <br />
         <button type="submit">Sign up</button>
