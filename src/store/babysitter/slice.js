@@ -18,9 +18,14 @@ const babysitterSlice = createSlice({
       state.babysitters = action.payload;
       state.loading = false;
     },
+    babysitterDetailsFetched: (state, action) => {
+      state.babysitterDetails = action.payload;
+      state.loading = false;
+    },
   },
 });
 
-export const { startLoading, babysittersFetched } = babysitterSlice.actions;
+export const { startLoading, babysittersFetched, babysitterDetailsFetched } =
+  babysitterSlice.actions;
 
 export default babysitterSlice.reducer;

@@ -5,7 +5,9 @@ export const HomePage = () => {
     <div>
       <h1>Welcome!</h1>
       <br />
-      <button>I'm a babysitter</button>
+      <Link to="/families">
+        <button>I'm a babysitter</button>
+      </Link>
       <Link to="/babysitters">
         <button>I'm a parent</button>
       </Link>

@@ -24,6 +24,7 @@ export const BabysitterPage = () => {
               key={babysitter.id}
               name={babysitter.name}
               imageUrl={babysitter.imageUrl}
+              id={babysitter.id}
             />
           ))}
     </div>
