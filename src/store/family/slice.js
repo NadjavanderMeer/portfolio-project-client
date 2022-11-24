@@ -1,0 +1,25 @@
+import { createSlice } from "@reduxjs/toolkit";
+
+const initialState = {
+  loading: true,
+  families: null,
+  familyDetails: null,
+};
+
+const familySlice = createSlice({
+  name: "family",
+  initialState,
+  reducers: {
+    startLoading: (state, action) => {
+      state.loading = true;
+    },
+    familiesFetched: (state, action) => {
+      state.families = action.payload;
+      state.loading = false;
+    },
+  },
+});
+
+export const { startLoading, familiesFetched } = familySlice.actions;
+
+export default familySlice.reducer;
