@@ -18,7 +18,11 @@ export const signUp = (name, email, password, isBabysitter) => {
       });
 
       dispatch(
-        loginSuccess({ token: response.data.token, user: response.data.user })
+        loginSuccess({
+          token: response.data.token,
+          user: response.data.user,
+          profile: response.data.profile,
+        })
       );
       dispatch(showMessageWithTimeout("succes", true, "account created"));
       dispatch(appDoneLoading());
@@ -57,7 +61,11 @@ export const login = (email, password) => {
       });
 
       dispatch(
-        loginSuccess({ token: response.data.token, user: response.data.user })
+        loginSuccess({
+          token: response.data.token,
+          user: response.data.user,
+          profile: response.data.profile,
+        })
       );
       dispatch(showMessageWithTimeout("succes", false, "welcome back!", 1500));
       dispatch(appDoneLoading());
@@ -101,9 +109,15 @@ export const getUserWithStoredToken = () => {
       const response = await axios.get(`${apiUrl}/auth/me`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-
+      console.log("response me", response);
       // token is still valid
-      dispatch(tokenStillValid({ user: response.data }));
+      dispatch(
+        loginSuccess({
+          token: token,
+          user: response.data.user,
+          profile: response.data.profile,
+        })
+      );
       dispatch(appDoneLoading());
     } catch (error) {
       if (error.response) {

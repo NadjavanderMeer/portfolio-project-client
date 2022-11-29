@@ -5,3 +5,4 @@ export * from "./BabysitterPage";
 export * from "./FamilyPage";
 export * from "./BabysitterDetailsPage";
 export * from "./FamilyDetailsPage";
+export * from "./MyProfilePage";

@@ -17,8 +17,14 @@ export const BabysitterDetailsPage = () => {
 
   return (
     <div>
-      {!babysitterDetails ? "Loading..." : <h1>{babysitterDetails.name}</h1>}
-      <div>
+      {!babysitterDetails ? (
+        "Loading..."
+      ) : (
+        <div className="text-4xl mt-8">
+          <p>{babysitterDetails.name}</p>
+        </div>
+      )}
+      <div className="mt-8">
         {!babysitterDetails ? (
           "Loading..."
         ) : (

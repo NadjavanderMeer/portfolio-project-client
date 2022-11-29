@@ -12,6 +12,7 @@ import {
   FamilyPage,
   BabysitterDetailsPage,
   FamilyDetailsPage,
+  MyProfilePage,
 } from "./pages";
 import { NavBar } from "./components";
 
@@ -33,6 +34,7 @@ function App() {
         <Route path="/families/:id" element={<FamilyDetailsPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/me" element={<MyProfilePage />} />
       </Routes>
     </div>
   );
