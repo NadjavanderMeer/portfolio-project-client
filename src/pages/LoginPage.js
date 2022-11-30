@@ -80,9 +80,15 @@ export const LoginPage = () => {
           </div>
         </div>
       </form>
-      {/* <p>
-        Don't have an account yet? Sign up <Link to="/signup">here</Link>!
-      </p> */}
+      <div className="text-sm mt-8">
+        <p>
+          Don't have an account yet? Sign up{" "}
+          <Link className="hover:text-green" to="/signup">
+            here
+          </Link>
+          !
+        </p>
+      </div>
     </div>
   );
 };

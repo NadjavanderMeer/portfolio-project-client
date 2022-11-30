@@ -5,7 +5,7 @@ export const FamilyCard = (props) => {
     <div className="shadow-md rounded-2xl w-56 bg-white m-2">
       <div className="rounded-t-lg h-28 w-full mb-4 bg-pink"></div>
       <div className="flex flex-col items-center justify-center p-4 -mt-16">
-        <Link to={`/families/${props.id}`} class="block relative">
+        <Link to={`/families/${props.id}`} className="block relative">
           <img
             alt={props.name}
             src={props.imageUrl}
@@ -14,7 +14,7 @@ export const FamilyCard = (props) => {
         </Link>
         <p className="text-black text-xl font-medium mt-2">{props.name}</p>
         {/* <p class="text-black text-xs flex items-center">Nantes</p> */}
-        <div class="flex items-center mt-8">
+        <div className="flex items-center mt-8">
           <Link to={`/families/${props.id}`}>
             <button className="bg-green hover:bg-white text-white text-sm font-medium hover:text-green border border-white hover:border-green py-2 px-4 rounded-full">
               About us

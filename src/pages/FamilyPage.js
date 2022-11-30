@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 
 import { FamilyCard } from "../components";
 import { selectFamilies } from "../store/family/selectors";
@@ -32,7 +32,7 @@ export const FamilyPage = () => {
               />
             ))}
       </div>
-      <div className="flex items-center mt-8">
+      <div className="flex items-center m-8">
         <MapContainer
           style={{ height: "300px", width: "500px", alignContent: "center" }}
           center={[52.37175078534378, 4.901850028088493]}

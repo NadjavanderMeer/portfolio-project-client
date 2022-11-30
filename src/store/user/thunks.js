@@ -109,14 +109,18 @@ export const getUserWithStoredToken = () => {
       const response = await axios.get(`${apiUrl}/auth/me`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log("response me", response);
+      // console.log("response me", response);
       // token is still valid
       dispatch(
-        loginSuccess({
-          token: token,
+        tokenStillValid({
           user: response.data.user,
           profile: response.data.profile,
         })
+        // loginSuccess({
+        //   token: token,
+        //   user: response.data.user,
+        //   profile: response.data.profile,
+        // })
       );
       dispatch(appDoneLoading());
     } catch (error) {
@@ -132,3 +136,35 @@ export const getUserWithStoredToken = () => {
     }
   };
 };
+
+export const editProfile =
+  ({
+    name,
+    imageUrl,
+    description,
+    hourlyRate,
+    ageOfChildren,
+    numberOfChildren,
+  }) =>
+  async (dispatch, getState) => {
+    const { profile } = getState().user;
+    // console.log(getState().user);
+    const responseEditProfile = await axios.patch(
+      `${apiUrl}/auth/profiles/${profile.id}`,
+      {
+        name: name,
+        imageUrl: imageUrl,
+        description: description,
+        hourlyRate: hourlyRate,
+        ageOfChildren: ageOfChildren,
+        numberOfChildren: numberOfChildren,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${getState().user.token}`,
+        },
+      }
+    );
+    console.log(responseEditProfile, "response edit profile");
+    dispatch(getUserWithStoredToken());
+  };

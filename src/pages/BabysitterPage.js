@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 
 import { BabysitterCard } from "../components";
 import { selectBabysitters } from "../store/babysitter/selectors";
@@ -32,7 +32,7 @@ export const BabysitterPage = () => {
               />
             ))}
       </div>
-      <div className="flex items-center mt-8">
+      <div className="flex items-center m-8">
         <MapContainer
           style={{ height: "300px", width: "500px", alignContent: "center" }}
           center={[52.37175078534378, 4.901850028088493]}
@@ -54,6 +54,11 @@ export const BabysitterPage = () => {
                   ]}
                 >
                   <Popup>
+                    <img
+                      className="rounded-full h-12 w-12"
+                      alt={babysitter.name}
+                      src={babysitter.imageUrl}
+                    />
                     <p>{babysitter.name}</p>
                   </Popup>
                 </Marker>

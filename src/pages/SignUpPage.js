@@ -113,9 +113,15 @@ export const SignUpPage = () => {
           </div>
         </div>
       </form>
-      {/* <p>
-        Already have an account? Click <Link to="/login">here</Link> to login!
-      </p> */}
+      <div className="text-sm mt-8">
+        <p>
+          Already have an account? Click{" "}
+          <Link className="hover:text-green" to="/signup">
+            here
+          </Link>{" "}
+          to login!
+        </p>
+      </div>
     </div>
   );
 };
