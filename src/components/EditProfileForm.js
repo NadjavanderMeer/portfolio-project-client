@@ -1,21 +1,30 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker } from "react-leaflet";
 
 import { selectMyProfile } from "../store/user/selectors";
 import { editProfile } from "../store/user/thunks";
+import { MapClickHandler } from "../components";
 
 export const EditProfileForm = () => {
   const dispatch = useDispatch();
   const profile = useSelector(selectMyProfile);
 
   const [name, setName] = useState(profile.name);
-  const [imageUrl, setImageUrl] = useState(profile.imageUrl);
+  const [imageUrl, setImageUrl] = useState("");
   const [description, setDescription] = useState(profile.description);
   const [hourlyRate, setHourlyRate] = useState(profile.hourlyRate);
   const [ageOfChildren, setAgeOfChildren] = useState(profile.ageOfChildren);
   const [numberOfChildren, setNumberOfChildren] = useState(
     profile.numberOfChildren
+  );
+  const [location, setLocation] = useState(
+    profile.locationLatitude && profile.locationLongitude
+      ? {
+          lat: profile.locationLatitude,
+          lng: profile.locationLongitude,
+        }
+      : null
   );
 
   const submitForm = (event) => {
@@ -28,12 +37,34 @@ export const EditProfileForm = () => {
       hourlyRate,
       ageOfChildren,
       numberOfChildren,
+      location,
     };
 
     dispatch(editProfile(updateProfile));
   };
 
   const babysitter = profile?.isBabysitter === true;
+
+  const uploadImage = async (event) => {
+    const files = event.target.files;
+    const data = new FormData();
+    data.append("file", files[0]);
+    // first parameter is always upload_preset, second is the name of the preset
+    data.append("upload_preset", "hlyeng5l");
+
+    //post request to Cloudinary, change to own link
+    const response = await fetch(
+      "https://api.cloudinary.com/v1_1/dwidgj8ft/image/upload",
+      {
+        method: "POST",
+        body: data,
+      }
+    );
+
+    const file = await response.json();
+    console.log("file", file); // check if you get the url back
+    setImageUrl(file.url); // put the url in local state, next step you can send it to the backend
+  };
 
   return (
     <form
@@ -52,7 +83,7 @@ export const EditProfileForm = () => {
                 type="text"
                 value={name}
                 onChange={(event) => setName(event.target.value)}
-                className=" rounded-lg border-transparent flex-1 appearance-none border border-black w-full py-2 px-4 bg-white text-black text-base focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent"
+                className=" rounded-lg border-transparent flex-1 appearance-none border border-black w-full py-2 px-4 bg-white text-black text-sm focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent"
               />
             </div>
           </div>
@@ -63,12 +94,23 @@ export const EditProfileForm = () => {
           </h2>
           <div className="max-w-sm mx-auto md:w-2/3">
             <div className=" relative ">
-              <textarea
-                type="text"
-                value={imageUrl}
-                onChange={(event) => setImageUrl(event.target.value)}
-                className=" rounded-lg border-transparent flex-1 appearance-none border border-black w-full py-2 px-4 bg-white text-black text-base focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent"
+              <input
+                type="file"
+                onChange={uploadImage}
+                className=" rounded-lg border-transparent flex-1 appearance-none border border-black w-full py-2 px-4 bg-white text-black text-sm focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent"
               />
+              <div className="mt-4">
+                <img
+                  alt=""
+                  src={
+                    imageUrl
+                      ? imageUrl
+                      : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
+                  }
+                  className="mx-auto object-cover rounded h-32 w-32 ml-8"
+                />
+                {imageUrl ? <p>Succesfully uploaded!</p> : ""}
+              </div>
             </div>
           </div>
         </div>
@@ -83,7 +125,7 @@ export const EditProfileForm = () => {
                 type="text"
                 value={description}
                 onChange={(event) => setDescription(event.target.value)}
-                className=" rounded-lg border-transparent flex-1 appearance-none border border-black w-full py-2 px-4 bg-white text-black text-base focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent"
+                className=" rounded-lg border-transparent flex-1 appearance-none border border-black w-full py-2 px-4 bg-white text-black text-sm focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent"
               />
             </div>
           </div>
@@ -100,7 +142,7 @@ export const EditProfileForm = () => {
                   type="text"
                   value={hourlyRate}
                   onChange={(event) => setHourlyRate(event.target.value)}
-                  className=" rounded-lg border-transparent flex-1 appearance-none border border-black w-full py-2 px-4 bg-white text-black text-base focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent"
+                  className=" rounded-lg border-transparent flex-1 appearance-none border border-black w-full py-2 px-4 bg-white text-black text-sm focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent"
                 />
               </div>
             </div>
@@ -118,7 +160,7 @@ export const EditProfileForm = () => {
                     type="text"
                     value={ageOfChildren}
                     onChange={(event) => setAgeOfChildren(event.target.value)}
-                    className=" rounded-lg border-transparent flex-1 appearance-none border border-black w-full py-2 px-4 bg-white text-black text-base focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent"
+                    className=" rounded-lg border-transparent flex-1 appearance-none border border-black w-full py-2 px-4 bg-white text-black text-sm focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent"
                   />
                 </div>
               </div>
@@ -136,7 +178,7 @@ export const EditProfileForm = () => {
                     onChange={(event) =>
                       setNumberOfChildren(event.target.value)
                     }
-                    className=" rounded-lg border-transparent flex-1 appearance-none border border-black w-full py-2 px-4 bg-white text-black text-base focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent"
+                    className=" rounded-lg border-transparent flex-1 appearance-none border border-black w-full py-2 px-4 bg-white text-black text-sm focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent"
                   />
                 </div>
               </div>
@@ -148,7 +190,7 @@ export const EditProfileForm = () => {
             Location
           </h2>
           <div className="max-w-sm mx-auto md:w-2/3">
-            <div className="relative ">
+            <div className="relative" id="map">
               <MapContainer
                 style={{
                   height: "200px",
@@ -163,18 +205,13 @@ export const EditProfileForm = () => {
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-
-                <Marker
-                  key={profile.id}
-                  position={[
-                    profile.locationLatitude,
-                    profile.locationLongitude,
-                  ]}
-                >
-                  <Popup>
-                    <p>{profile.name}</p>
-                  </Popup>
-                </Marker>
+                {location && (
+                  <Marker
+                    key={profile.id}
+                    position={[location.lat, location.lng]}
+                  />
+                )}
+                <MapClickHandler setter={setLocation} />
               </MapContainer>
             </div>
           </div>
@@ -191,19 +228,3 @@ export const EditProfileForm = () => {
     </form>
   );
 };
-
-{
-  /* <div>
-  {edit ? (
-    <input
-      type="text"
-      classNameName=" rounded-lg border-transparent flex-1 appearance-none border border-black w-full py-2 px-4 bg-white text-black text-base focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent"
-      //   rows={50}
-      value={text}
-      onChange={(e) => setText(e.target.value)}
-    />
-  ) : (
-    <p>{text}</p>
-  )}
-</div>; */
-}

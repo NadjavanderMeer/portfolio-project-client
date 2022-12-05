@@ -1,48 +1,17 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import {
-  selectMyProfile,
-  selectToken,
-  // selectUser,
-} from "../store/user/selectors";
+import { MapContainer, TileLayer, Marker } from "react-leaflet";
+import { selectMyProfile, selectToken } from "../store/user/selectors";
 import { EditProfileForm } from "../components/EditProfileForm";
 
 export const MyProfilePage = () => {
   const [editMode, setEditMode] = useState();
-  // const [profileForm, setProfileForm] = useState(null);
 
   const navigate = useNavigate();
 
-  // const user = useSelector(selectUser);
   const profile = useSelector(selectMyProfile);
   const token = useSelector(selectToken);
-
-  // useEffect(() => {
-  //   if (profile) {
-  //     const {
-  //       locationLatitude,
-  //       locationLongitude,
-  //       name,
-  //       imageUrl,
-  //       description,
-  //       hourlyRate,
-  //       ageOfChildren,
-  //       numberOfChildren,
-  //     } = profile;
-  //     setProfileForm({
-  //       locationLatitude,
-  //       locationLongitude,
-  //       name,
-  //       imageUrl,
-  //       description,
-  //       hourlyRate,
-  //       ageOfChildren,
-  //       numberOfChildren,
-  //     });
-  //   }
-  // }, [profile]);
 
   useEffect(() => {
     if (!token) {
@@ -51,7 +20,6 @@ export const MyProfilePage = () => {
   }, [token, navigate]);
 
   const babysitter = profile?.isBabysitter === true;
-
   // console.log("babysitter", babysitter);
 
   if (!profile) {
@@ -90,7 +58,7 @@ export const MyProfilePage = () => {
               </h2>
               <div className="max-w-sm mx-auto md:w-2/3">
                 <div className="relative ">
-                  <p className="rounded-lg border-transparent flex-1 appearance-none border border-black w-full py-2 px-4 bg-white text-black text-sm focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent text-left">
+                  <p className="rounded-lg border-transparent flex-1 appearance-none w-full py-2 px-4 bg-white text-black text-sm focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent text-left">
                     {profile.name}
                   </p>
                 </div>
@@ -102,9 +70,11 @@ export const MyProfilePage = () => {
               </h2>
               <div className="max-w-sm mx-auto md:w-2/3">
                 <div className="relative ">
-                  <p className="rounded-lg border-transparent flex-1 appearance-none border border-black w-full py-2 px-4 bg-white text-black text-sm focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent text-left">
-                    {profile.imageUrl}
-                  </p>
+                  <img
+                    alt={profile.name}
+                    src={profile.imageUrl}
+                    className="mx-auto object-cover rounded h-32 w-32 ml-8"
+                  />
                 </div>
               </div>
             </div>
@@ -114,7 +84,7 @@ export const MyProfilePage = () => {
               </h2>
               <div className="max-w-sm mx-auto md:w-2/3">
                 <div className="relative ">
-                  <p className="rounded-lg border-transparent flex-1 appearance-none border border-black w-full py-2 px-4 bg-white text-black text-sm focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent text-left">
+                  <p className="rounded-lg border-transparent flex-1 appearance-none w-full py-2 px-4 bg-white text-black text-sm focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent text-left">
                     {profile.description}
                   </p>
                 </div>
@@ -127,7 +97,7 @@ export const MyProfilePage = () => {
                 </h2>
                 <div className="max-w-sm mx-auto md:w-2/3">
                   <div className="relative ">
-                    <p className="rounded-lg border-transparent flex-1 appearance-none border border-black w-full py-2 px-4 bg-white text-black text-sm focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent text-left">
+                    <p className="rounded-lg border-transparent flex-1 appearance-none w-full py-2 px-4 bg-white text-black text-sm focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent text-left">
                       € {profile.hourlyRate}
                     </p>
                   </div>
@@ -141,7 +111,7 @@ export const MyProfilePage = () => {
                   </h2>
                   <div className="max-w-sm mx-auto md:w-2/3">
                     <div className="relative ">
-                      <p className="rounded-lg border-transparent flex-1 appearance-none border border-black w-full py-2 px-4 bg-white text-black text-sm focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent text-left">
+                      <p className="rounded-lg border-transparent flex-1 appearance-none w-full py-2 px-4 bg-white text-black text-sm focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent text-left">
                         {profile.ageOfChildren}
                       </p>
                     </div>
@@ -153,7 +123,7 @@ export const MyProfilePage = () => {
                   </h2>
                   <div className="max-w-sm mx-auto md:w-2/3">
                     <div className="relative ">
-                      <p className="rounded-lg border-transparent flex-1 appearance-none border border-black w-full py-2 px-4 bg-white text-black text-sm focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent text-left">
+                      <p className="rounded-lg border-transparent flex-1 appearance-none w-full py-2 px-4 bg-white text-black text-sm focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent text-left">
                         {profile.numberOfChildren}
                       </p>
                     </div>
@@ -181,18 +151,15 @@ export const MyProfilePage = () => {
                       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
-
-                    <Marker
-                      key={profile.id}
-                      position={[
-                        profile.locationLatitude,
-                        profile.locationLongitude,
-                      ]}
-                    >
-                      <Popup>
-                        <p>{profile.name}</p>
-                      </Popup>
-                    </Marker>
+                    {profile.locationLatitude && profile.locationLongitude && (
+                      <Marker
+                        key={profile.id}
+                        position={[
+                          profile.locationLatitude,
+                          profile.locationLongitude,
+                        ]}
+                      />
+                    )}
                   </MapContainer>
                 </div>
               </div>

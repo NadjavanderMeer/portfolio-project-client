@@ -45,21 +45,29 @@ export const FamilyPage = () => {
           />
           {!families
             ? ""
-            : families.map((family) => (
-                <Marker
-                  key={family.id}
-                  position={[family.locationLatitude, family.locationLongitude]}
-                >
-                  <Popup>
-                    <img
-                      className="rounded-full h-12 w-12"
-                      alt={family.name}
-                      src={family.imageUrl}
-                    />
-                    <p>{family.name}</p>
-                  </Popup>
-                </Marker>
-              ))}
+            : families
+                .filter(
+                  (family) =>
+                    family.locationLatitude && family.locationLongitude
+                )
+                .map((family) => (
+                  <Marker
+                    key={family.id}
+                    position={[
+                      family.locationLatitude,
+                      family.locationLongitude,
+                    ]}
+                  >
+                    <Popup>
+                      <img
+                        className="rounded-full h-12 w-12"
+                        alt={family.name}
+                        src={family.imageUrl}
+                      />
+                      <p>{family.name}</p>
+                    </Popup>
+                  </Marker>
+                ))}
         </MapContainer>
       </div>
     </div>

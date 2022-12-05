@@ -145,6 +145,7 @@ export const editProfile =
     hourlyRate,
     ageOfChildren,
     numberOfChildren,
+    location,
   }) =>
   async (dispatch, getState) => {
     const { profile } = getState().user;
@@ -158,6 +159,8 @@ export const editProfile =
         hourlyRate: hourlyRate,
         ageOfChildren: ageOfChildren,
         numberOfChildren: numberOfChildren,
+        locationLatitude: location.lat,
+        locationLongitude: location.lng,
       },
       {
         headers: {

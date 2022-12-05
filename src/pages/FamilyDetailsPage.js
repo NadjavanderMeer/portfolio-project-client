@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 import { selectFamilyDetails } from "../store/family/selectors";
 import { fetchFamilyDetails } from "../store/family/thunks";
@@ -72,7 +71,7 @@ export const FamilyDetailsPage = () => {
             </h2>
             <div className="max-w-sm mx-auto md:w-2/3">
               <div className="relative ">
-                <p className="rounded-lg border-transparent flex-1 appearance-none border border-black w-full py-2 px-4 bg-white text-black text-sm focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent text-left">
+                <p className="rounded-lg border-transparent flex-1 appearance-none w-full py-2 px-4 bg-white text-black text-sm focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent text-left">
                   {familyDetails.ageOfChildren}
                 </p>
               </div>
@@ -84,7 +83,7 @@ export const FamilyDetailsPage = () => {
             </h2>
             <div className="max-w-sm mx-auto md:w-2/3">
               <div className="relative ">
-                <p className="rounded-lg border-transparent flex-1 appearance-none border border-black w-full py-2 px-4 bg-white text-black text-sm focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent text-left">
+                <p className="rounded-lg border-transparent flex-1 appearance-none w-full py-2 px-4 bg-white text-black text-sm focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent text-left">
                   {familyDetails.numberOfChildren}
                 </p>
               </div>

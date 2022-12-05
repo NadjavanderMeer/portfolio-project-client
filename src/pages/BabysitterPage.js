@@ -32,7 +32,7 @@ export const BabysitterPage = () => {
               />
             ))}
       </div>
-      <div className="flex items-center m-8">
+      <div className="flex items-center m-8" id="map">
         <MapContainer
           style={{ height: "300px", width: "500px", alignContent: "center" }}
           center={[52.37175078534378, 4.901850028088493]}
@@ -45,24 +45,29 @@ export const BabysitterPage = () => {
           />
           {!babysitters
             ? ""
-            : babysitters.map((babysitter) => (
-                <Marker
-                  key={babysitter.id}
-                  position={[
-                    babysitter.locationLatitude,
-                    babysitter.locationLongitude,
-                  ]}
-                >
-                  <Popup>
-                    <img
-                      className="rounded-full h-12 w-12"
-                      alt={babysitter.name}
-                      src={babysitter.imageUrl}
-                    />
-                    <p>{babysitter.name}</p>
-                  </Popup>
-                </Marker>
-              ))}
+            : babysitters
+                .filter(
+                  (babysitter) =>
+                    babysitter.locationLatitude && babysitter.locationLongitude
+                )
+                .map((babysitter) => (
+                  <Marker
+                    key={babysitter.id}
+                    position={[
+                      babysitter.locationLatitude,
+                      babysitter.locationLongitude,
+                    ]}
+                  >
+                    <Popup>
+                      <img
+                        className="rounded-full h-12 w-12"
+                        alt={babysitter.name}
+                        src={babysitter.imageUrl}
+                      />
+                      <p>{babysitter.name}</p>
+                    </Popup>
+                  </Marker>
+                ))}
         </MapContainer>
       </div>
     </div>
